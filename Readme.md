@@ -1,4 +1,4 @@
 # STUDY BUD PROJECT
 
-Project name=StudyBud
-App Name= Base
+Project name = StudyBud
+App Name = Base
