@@ -3,12 +3,13 @@
 
 {% block content %}
  <h2>HOME PAGE</h2>
+ <a href="{% url 'Create-Room' %}">Create Room</a>
  
  {% for room in rooms %}
   <div>
    <span>USER : @{{room.host}} ---------------</span>
    <span>TOPIC : {{room.Topic}}</span>
-   <h3>{{room.id}} ---- <a href="{% url 'room' room.id %}">{{room.name}}</a></h3>
+   <h3>ROOM ID : {{room.id}}  ------- <a href="{% url 'room' room.id %}">{{room.name}}</a></h3> <h3><a href="{% url 'Update-Room' room.id %}">EDIT</a></h3> <h3><a href="{% url 'Delete-Room' room.id %}">DELETE</a></h3>
    <hr>
   </div>
     
