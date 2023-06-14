@@ -8,5 +8,8 @@ urlpatterns = [
     path('create_room/',CreateRoom,name="Create-Room"),
     path('update_room/<str:pk>',UpdateRoom,name="Update-Room"),
     path('delete_room/<str:pk>',DeleteRoom,name="Delete-Room"),
+
+    # AUTHETICATION URLS
+    path('signin/',loginpage,name="User-login"),
     
 ]

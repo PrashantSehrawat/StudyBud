@@ -1,6 +1,10 @@
 from django.shortcuts import render 
+from django.contrib import messages
 from django.http import HttpResponse 
+from django.contrib.auth import login
 from django.shortcuts import redirect
+from django.contrib.auth import authenticate
+
 # Create your views here.
 from .models import *
 from django.db.models import Q
@@ -18,10 +22,10 @@ def home(request):
     q = request.GET.get('q') if request.GET.get('q') !=None else ''
     rooms=Room.objects.filter(Q(topic__name__icontains=q) | Q(name__icontains=q) | Q(description__icontains=q)) 
     topic=Topic.objects.all()
-    print(topic)
+    room_count=rooms.count()
     context={'rooms':rooms,
              'topic':topic,
-             }
+             'room_count':room_count,}
     return render(request ,'base/home.html',context)
 
 def room(request,pk):
@@ -57,4 +61,22 @@ def DeleteRoom(request,pk):
    return redirect('/')
       
 
+def loginpage(request):
+   
+   if request.method=="POST":
+      username=request.POST.get('username')
+      password=request.POST.get('password')
+      try:
+        user=User.objects.get(username=username)
+      except:
+          messages.error(request, "Username Does Not Exists")
+          
+      user = authenticate(request,username=username, password=password)
 
+      if user is not None:
+         login(request,user)
+         return redirect("/")
+      else:
+         messages.error(request, "Username Or Password Does Not Match")
+   context={}
+   return render(request,"base/login_register.html",context)

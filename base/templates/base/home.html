@@ -31,7 +31,12 @@
         
   <h2>HOME PAGE</h2>
   <a href="{% url 'Create-Room' %}">Create Room</a>
- 
+   {% if room_count > 1 %}
+   <h3>{{room_count}} ROOMS AVAILABLE</h3>
+   {% else%}
+    <h3>{{room_count}} ROOM AVAILABLE</h3>
+   {% endif %}
+   
  {% for room in rooms %}
   <div>
    <span>USER : @{{room.host}} ---------------</span>
