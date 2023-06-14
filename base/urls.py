@@ -10,6 +10,7 @@ urlpatterns = [
     path('delete_room/<str:pk>',DeleteRoom,name="Delete-Room"),
 
     # AUTHETICATION URLS
-    path('signin/',loginpage,name="User-login"),
+    path('login/',loginpage,name="User-login"),
+    path('logout/',UserLogOut,name="User-logout"),
     
 ]

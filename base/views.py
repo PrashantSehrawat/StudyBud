@@ -4,8 +4,9 @@ from django.http import HttpResponse
 from django.contrib.auth import login
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate
-
+from django.contrib.auth import logout
 # Create your views here.
+from django.http import HttpResponseRedirect
 from .models import *
 from django.db.models import Q
 from base.form import CreateRoomForm
@@ -80,3 +81,8 @@ def loginpage(request):
          messages.error(request, "Username Or Password Does Not Match")
    context={}
    return render(request,"base/login_register.html",context)
+
+
+def UserLogOut(request):
+   logout(request)
+   return redirect('/')
