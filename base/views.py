@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 # Create your views here.
 from .models import *
-
+from django.db.models import Q
 from base.form import CreateRoomForm
 # rooms = [ 
 #          {'id': 1 ,'title':'Lets learn Python'},
@@ -15,8 +15,13 @@ from base.form import CreateRoomForm
 
 
 def home(request):
-    rooms=Room.objects.all()
-    context={'rooms':rooms}
+    q = request.GET.get('q') if request.GET.get('q') !=None else ''
+    rooms=Room.objects.filter(Q(topic__name__icontains=q) | Q(name__icontains=q) | Q(description__icontains=q)) 
+    topic=Topic.objects.all()
+    print(topic)
+    context={'rooms':rooms,
+             'topic':topic,
+             }
     return render(request ,'base/home.html',context)
 
 def room(request,pk):
@@ -51,5 +56,5 @@ def DeleteRoom(request,pk):
    room.delete()
    return redirect('/')
       
-   
+
 
