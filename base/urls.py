@@ -12,5 +12,7 @@ urlpatterns = [
     # AUTHETICATION URLS
     path('login/',loginpage,name="User-login"),
     path('logout/',UserLogOut,name="User-logout"),
+    path('register/',RegisterUser,name="User-register"),
+    
     
 ]
