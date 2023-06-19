@@ -141,10 +141,11 @@ def RegisterUser(request):
 #    return redirect('/')
 
 def UserProfile(request,pk):
+   q = request.GET.get('q') if request.GET.get('q') !=None else ''
    user=User.objects.get(id=pk)
-   rooms=user.room_set.all
+   get_message=Message.objects.filter(Q(room__topic__name__icontains=q))
    context={
       'user':user,
-      
+      'get_message':get_message,
    }
    return render(request,"base/profile.html",context)
