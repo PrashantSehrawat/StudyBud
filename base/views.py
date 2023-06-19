@@ -63,7 +63,9 @@ def CreateRoom(request):
           #print(request.POST)
           form=CreateRoomForm(request.POST)
           if form.is_valid():
-           form.save()
+           room=form.save(commit=False)
+           room.host=request.user
+           room.save()
            return redirect("/")
     context={'form':form}
     return render(request,'base/room_form.html',context)
@@ -137,3 +139,12 @@ def RegisterUser(request):
 #    message=Message.object.get(id=pk)
 #    message.delete()
 #    return redirect('/')
+
+def UserProfile(request,pk):
+   user=User.objects.get(id=pk)
+   rooms=user.room_set.all
+   context={
+      'user':user,
+      
+   }
+   return render(request,"base/profile.html",context)
