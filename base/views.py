@@ -53,7 +53,7 @@ def room(request,pk):
        rooms.participant.add(request.user)
        return redirect('room',pk=rooms.id)
 
-    context={'rooms':rooms,'room_messages':room_msg ,'get_participants':get_participants}
+    context={'rooms':rooms,'room_messages':room_msg ,'get_participants':get_participants,}
     return render(request ,'base/room.html',context)
 
 @login_required(login_url='User-login')
@@ -112,7 +112,7 @@ def loginpage(request):
       else:
          messages.error(request, "Username Or Password Does Not Match")
    context={}
-   return render(request,"base/login_register.html",context)
+   return render(request,"base/login.html",context)
 
 
 def UserLogOut(request):
