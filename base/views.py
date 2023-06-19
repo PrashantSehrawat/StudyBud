@@ -24,14 +24,17 @@ from base.form import CreateRoomForm
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') !=None else ''
     rooms=Room.objects.filter(Q(topic__name__icontains=q) | Q(name__icontains=q) | Q(description__icontains=q)) 
-    #print(rooms)
+
     #rooms will give the query set
+    get_message=Message.objects.filter(Q(room__topic__name__icontains=q))
+    #print(get_message)
     topic=Topic.objects.all()
     #print(topic)
     room_count=rooms.count()
     context={'rooms':rooms,
              'topic':topic,
-             'room_count':room_count,}
+             'room_count':room_count,
+             'get_message':get_message,}
     return render(request ,'base/home.html',context)
 
 def room(request,pk):
@@ -130,3 +133,7 @@ def RegisterUser(request):
 
    return render(request,"base/register.html",{'form':form})
 
+# def deletemessage(request,pk):
+#    message=Message.object.get(id=pk)
+#    message.delete()
+#    return redirect('/')
